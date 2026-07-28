@@ -8,6 +8,7 @@ import { v4 as uuidV4 } from "uuid"
 import { NoteList } from "./Components/NoteList"
 import { NoteLayout } from "./Components/NoteLayout"
 import { Note } from "./Components/Note"
+import { EditNote } from "./Components/EditNote"
 
 export type Note = {
   id: string
@@ -50,6 +51,25 @@ function App() {
     })
   }
 
+  function onUpdateNote(id: string, { tags, ...data }: NoteData) {
+    setNotes(prevNotes => {
+      return prevNotes.map(note => {
+        if (note.id === id) {
+          return { ...note, ...data, tagIds: tags.map(tag => tag.id) }
+        }
+        else {
+          return note
+        }
+      })
+    })
+  }
+
+  function onDeleteNote(id: string){
+    setNotes(prevNotes => {
+      return prevNotes.filter(note => note.id !== id)
+    })
+  }
+
   function addTag(tag: Tag) {
     setTags(prev => [...prev, tag])
   }
@@ -57,7 +77,7 @@ function App() {
   return (
     <Container className="my-4">
       <Routes>
-        <Route path="/" element={<NoteList availableTags={tags} notes={notesWithTags}/>} />
+        <Route path="/" element={<NoteList availableTags={tags} notes={notesWithTags} />} />
         <Route
           path="/new"
           element={
@@ -68,9 +88,18 @@ function App() {
             />
           }
         />
-        <Route path="/:id" element={<NoteLayout notes={notesWithTags}/>}>
-          <Route index element={<Note/>}></Route>
-          <Route path="edit" element={<h1>Edit</h1>}></Route>
+        <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
+          <Route index element={<Note onDelete={onDeleteNote}/>}></Route>
+          <Route
+            path="edit"
+            element={
+              <EditNote
+                onSubmit={onUpdateNote}
+                onAddTag={addTag}
+                availableTags={tags}
+              />
+            }>
+          </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
