@@ -35,7 +35,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title="", body="",
                     <Col>
                         <Form.Group controlId="title">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control ref={titleRef} required defaultValue={title} />
+                            <Form.Control ref={titleRef} required defaultValue={title} className="input-focus" />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -67,7 +67,7 @@ export function NoteForm({ onSubmit, onAddTag, availableTags, title="", body="",
                 </Row>
                 <Form.Group controlId="markdown">
                     <Form.Label>Body</Form.Label>
-                    <Form.Control ref={markdownRef} required as="textarea" rows={15} defaultValue={body}/>
+                    <Form.Control ref={markdownRef} required as="textarea" rows={15} defaultValue={body} className="input-focus"/>
                 </Form.Group>
                 <Stack direction="horizontal" gap={2} className="d-flex justify-content-end">
                     <Button type="submit" variant="primary">Save</Button>
