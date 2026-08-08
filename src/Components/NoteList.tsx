@@ -3,13 +3,14 @@ import { Button, Col, Row, Stack, Form, Card, Badge, Modal } from "react-bootstr
 import { Link } from "react-router-dom";
 import Select from "react-select/creatable";
 import type { Note, Tag } from "../App";
-import styles from "./NoteList.module.css"
 
 type NoteListProps = {
     availableTags: Tag[]
     notes: Note[]
     updateTag: (id: string, label: string) => void
     deleteTag: (id: string) => void
+    title: string
+    setTitle: (v: string) => void
 }
 
 type SimplifiedNote = {
@@ -26,10 +27,9 @@ type EditNoteModalTypes = {
     deleteTag: (id: string) => void
 }
 
-export function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteListProps) {
+export function NoteList({ availableTags, notes, updateTag, deleteTag, title, setTitle }: NoteListProps) {
 
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
-    const [title, setTitle] = useState("")
     const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false);
 
     const filteredNotes = useMemo(() => {
@@ -115,7 +115,7 @@ export function NoteList({ availableTags, notes, updateTag, deleteTag }: NoteLis
 
 function NoteCard({ id, title, tags }: SimplifiedNote) {
     return (
-        <Card as={Link} to={`/${id}`} className={`h-100 text-reset text-decoration-none ${styles.card}`}>
+        <Card as={Link} to={`/${id}`} className={`h-100 text-reset text-decoration-none card-link`}>
             <Card.Body>
                 <Stack gap={2} className="align-items-center justify-content-center h-100">
                     <span className="fs-5">
