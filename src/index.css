@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@8..144,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --card: #f8fafc;
+  --accent: #2563eb;
+  --text: #0f172a;
+}
+
+.dark {
+  --bg: #0b1220;
+  --muted: #9ca3af;
+  --card: #071027;
+  --accent: #60a5fa;
+  --text: #e6eef8;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* small card utility used where module CSS used previously */
+.card-link {
+  @apply block rounded-lg shadow-sm bg-[color:var(--card)] hover:shadow-md transition-transform transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)];
+}
+
+/* focus styles for inputs/buttons */
+.input-focus:focus {
+  @apply outline-none ring-2 ring-[color:var(--accent)];
+}
